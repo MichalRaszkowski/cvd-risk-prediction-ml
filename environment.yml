@@ -1,5 +1,5 @@
 name: cvd-project
-channels:
+channels: con
   - conda-forge
   - defaults
 dependencies:

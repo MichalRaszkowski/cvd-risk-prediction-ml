@@ -1,17 +1,23 @@
 # src/preprocessing.py
-
+import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import RobustScaler
+from sklearn.feature_selection import RFE
+
+def add_features(df):
+    df = df.copy()
+    df["chol_age_ratio"] = df["chol"] / df["age"]
+    df["bp_age_ratio"] = df["trestbps"] / df["age"]
+    df["thalach_age_ratio"] = df["thalach"] / df["age"]
+    
+    df["hypertension"] = (df["trestbps"] > 130).astype(int)
+    df["high_chol"] = (df["chol"] > 240).astype(int)
+
+    return df
 
 def preprocess_data(X_train, X_val, X_test):
-    X_train = X_train.astype(float)
-    X_val = X_val.astype(float)
-    X_test = X_test.astype(float)
-
-    scaler = StandardScaler()
-    
+    scaler = RobustScaler()
     X_train_scaled = scaler.fit_transform(X_train)
-
     X_val_scaled = scaler.transform(X_val)
     X_test_scaled = scaler.transform(X_test)
 

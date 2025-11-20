@@ -1,3 +1,5 @@
+# src/evaluate.py
+
 from sklearn.metrics import (
     confusion_matrix,
     accuracy_score,
@@ -11,8 +13,6 @@ from sklearn.metrics import (
     brier_score_loss
 )
 import numpy as np
-
-
 
 def evaluate_model(model, X, y, dataset_name="Test", threshold=0.5):
     y_proba = model.predict_proba(X)[:, 1]

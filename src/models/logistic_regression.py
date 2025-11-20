@@ -1,18 +1,12 @@
-# src/model.py
+# src/logistic_regression.py
 
 import joblib
 from sklearn.linear_model import LogisticRegression
 
 
-def train_model(X_train, y_train, penalty='l2', C=0.1):
-    model = LogisticRegression(
-        max_iter=100,
-        solver='liblinear',
-        class_weight='balanced',
-        penalty=penalty,
-        C=C
-    )
-    model.fit(X_train, y_train)
+def train_logistic_regression(X, y, params):
+    model = LogisticRegression(**params, max_iter=500)
+    model.fit(X, y)
     return model
 
 

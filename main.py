@@ -1,11 +1,14 @@
 # main.py
 
 from src.analysis import full_analysis
-from src.training import run_training_pipeline
+from src.training_lr import run_training_pipeline
+from src.training_rf import run_training_pipeline_rf
 
 def main():
     
     result = run_training_pipeline()
+    
+    #results_rf = run_training_pipeline_rf()
     
     analysis_results = full_analysis(
         model=result["model"],

@@ -7,6 +7,11 @@ from sklearn.metrics import f1_score, confusion_matrix
 
 
 def analyze_feature_importance(model, X_train):
+    '''
+    Analyzes and visualizes feature importance for a logistic regression model.
+    model - trained logistic regression model
+    X_train - training features as a DataFrame
+    '''
     feature_names = X_train.columns
     coefficients = model.coef_[0]
 
@@ -30,6 +35,14 @@ def analyze_feature_importance(model, X_train):
 
 
 def analyze_errors(model, X_val, X_val_scaled, y_val, threshold=0.5):
+    '''
+    Analyzes prediction errors on the validation set.
+    model - trained logistic regression model
+    X_val - validation features as a DataFrame
+    X_val_scaled - scaled validation features as a numpy array
+    y_val - true validation target values as a Series
+    threshold - classification threshold
+    '''
     y_proba = model.predict_proba(X_val_scaled)[:, 1]
     y_pred = (y_proba >= threshold).astype(int)
 
@@ -49,39 +62,14 @@ def analyze_errors(model, X_val, X_val_scaled, y_val, threshold=0.5):
 
     errors_df["error_type"] = errors_df.apply(classify, axis=1)
 
-    print("\n=== Error Type Counts ===")
     print(errors_df["error_type"].value_counts())
 
     return errors_df
 
-
-def analyze_thresholds(y_true, y_proba, start=0.1, stop=0.9, step=0.05):
-    thresholds = np.arange(start, stop, step)
-    results = []
-
-    for t in thresholds:
-        y_pred = (y_proba >= t).astype(int)
-        tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-        f1 = f1_score(y_true, y_pred)
-        results.append((t, f1, fn, fp))
-
-    df = pd.DataFrame(results, columns=["Threshold", "F1", "FN", "FP"])
-
-    print("\nThreshold Analysis")
-    print(df)
-
-    plt.figure(figsize=(8, 5))
-    plt.plot(df["Threshold"], df["F1"], marker="o")
-    plt.xlabel("Threshold")
-    plt.ylabel("F1 score")
-    plt.title("F1 score vs Threshold")
-    plt.grid(True)
-    plt.show()
-
-    return df
-
-
 def full_analysis(model, X_train, X_val, X_val_scaled, y_val, threshold=0.5):
+    '''
+    Performs full analysis: feature importance and error analysis.
+    '''
     print("\nFEATURE IMPORTANCE")
     importance_df = analyze_feature_importance(model, X_train)
 

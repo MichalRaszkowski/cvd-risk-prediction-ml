@@ -8,7 +8,7 @@ def main():
     
     result = run_training_pipeline()
     
-    #results_rf = run_training_pipeline_rf()
+    # results_rf = run_training_pipeline_rf()
     
     analysis_results = full_analysis(
         model=result["model"],

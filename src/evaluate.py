@@ -15,6 +15,9 @@ from sklearn.metrics import (
 import numpy as np
 
 def evaluate_model(model, X, y, dataset_name="Test", threshold=0.5):
+    '''
+    Evaluates the model on given data and prints metrics - basic version.
+    '''
     y_proba = model.predict_proba(X)[:, 1]
     y_pred = (y_proba >= threshold).astype(int)
 
@@ -44,6 +47,9 @@ def evaluate_model(model, X, y, dataset_name="Test", threshold=0.5):
 
 #function below generated with help of chatgpt
 def evaluate_model_extended(model, X, y, dataset_name="Test", threshold=0.5):
+    '''
+    Evaluates the model on given data and prints extended metrics.
+    '''
     y_proba = model.predict_proba(X)[:, 1]
     y_pred = (y_proba >= threshold).astype(int)
 

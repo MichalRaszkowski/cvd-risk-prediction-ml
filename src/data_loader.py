@@ -3,11 +3,18 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 def load_data(path="data/heart.csv"):
+    '''
+    Loads the dataset from a CSV file and removes duplicates.
+    '''
     df = pd.read_csv(path)
     df = df.drop_duplicates().reset_index(drop=True)
+    #df = df.drop(columns=["sex"])
     return df
 
-def split_data(df, test_size=0.15, val_size=0.15, random_state=42):
+def split_data(df, test_size=0.15, val_size=0.15, random_state=40):
+    '''
+    Splits the DataFrame into training, validation, and test sets.
+    '''
     X = df.drop(columns=["target"])
     y = df["target"]
 

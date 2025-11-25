@@ -8,8 +8,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RandomizedSearchCV
 
 
-
 def tune_hyperparameters(X_train, y_train):
+    '''
+    Tunes hyperparameters for logistic regression using GridSearchCV.
+    '''
     model = LogisticRegression(max_iter=3000, solver='liblinear')
 
     param_grid = {
@@ -36,6 +38,9 @@ def tune_hyperparameters(X_train, y_train):
     return grid.best_params_
 
 def find_best_threshold(y_true, y_proba, start=0.1, stop=0.9, step=0.05):
+    '''
+    Finds the best classification threshold based on F1 score.
+    '''
     thresholds = np.arange(start, stop, step)
     f1_scores = {}
 
@@ -59,6 +64,9 @@ def find_best_threshold(y_true, y_proba, start=0.1, stop=0.9, step=0.05):
 
 
 def tune_hyperparameters_rf(X_train, y_train):
+    '''
+    Tunes hyperparameters for Random Forest using GridSearchCV.
+    '''
     param_grid = {
         "n_estimators": [200, 300, 400],
         "max_depth": [3, 5, 7],

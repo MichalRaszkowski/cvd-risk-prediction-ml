@@ -10,10 +10,16 @@ def run_training_pipeline(data_path="data/heart.csv"):
     '''
      Runs the training pipeline for logistic regression.
     '''
-    
+
     df = load_data(data_path)
 
     X_train, X_val, X_test, y_train, y_val, y_test = split_data(df)
+
+    # Save test set for manual inspection later
+    test_set = X_test.copy()
+    test_set["target"] = y_test
+    test_set.to_csv("data/test_set.csv", index=False)
+
 
     X_train = add_features(X_train)
     X_val = add_features(X_val)

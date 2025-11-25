@@ -12,7 +12,6 @@ def add_features(df):
     df["chol_age_ratio"] = df["chol"] / df["age"]
     df["bp_age_ratio"] = df["trestbps"] / df["age"]
     df["thalach_age_ratio"] = df["thalach"] / df["age"]
-    
     df["hypertension"] = (df["trestbps"] > 130).astype(int)
     df["high_chol"] = (df["chol"] > 240).astype(int)
 

@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RandomizedSearchCV
 
 
-def tune_hyperparameters(X_train, y_train):
+def tune_hyperparameters(X, y):
     '''
     Tunes hyperparameters for logistic regression using GridSearchCV.
     '''
@@ -30,7 +30,7 @@ def tune_hyperparameters(X_train, y_train):
         n_jobs=-1,
         verbose=1
     )
-    grid.fit(X_train, y_train)
+    grid.fit(X, y)
 
     print("Best parameters:", grid.best_params_)
     print("Best F1 score:", grid.best_score_)
